@@ -48,17 +48,21 @@ main:
 		ldr r0,=STRPEDIR
 		bl puts
 
+		/* Capturar valor de letra ingresada por el usuario */
 		ldr r0, =FORMS
 		ldr r1, =RES
 		bl scanf
 		
+		/* Mover a registros el nuemro y letra que ingresa el usuario */
 		ldr r0, = RES 
 		ldrb r7, [r0] 
-		ldrb r6, [r0,#1] 
-		sub r7, #48
-		sub r7, #1 
+		ldrb r6, [r0,#1]
+		/* Conversion ascii a numero */
+		sub r7, #49
 		
+		/* Comparar respuesta correcta con la del usuario */
 		ldr r3, =LETRAS
+		/* offset que indica el numero de la letra */
 		ldrb r8, [r3,r7] 
 		mov r1,r8
 		cmp r8, r6 
@@ -116,6 +120,7 @@ STRINCORRECTO: .asciz "Incorrecto! \n"
 CHAR: .asciz "%s"
 PALABRAS: .asciz "1.anot_","2.ga_ta","3._ielo","4.libr_","5.ba_co"
 LETRAS: .byte 'a', 'i', 'c', 'a','n'
+RESPUESTAS: .asciz "anota","gaita","cielo","libra","banco"
 
 @ Referencias a memorias que guardan datos ingresados por el usuario 
 FORM: .asciz "%d"
