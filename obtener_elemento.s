@@ -36,7 +36,7 @@ obtener_elemento:
 	ldr r1, =RES
 	bl scanf @ compara si la letra corresponde a la palabra
 	
-	ldr r0, = cadena 
+	ldr r0, = CHAR 
 	ldrb r10, [r0]
 	ldrb r11, [r0,#1] 
 	sub r10, #0x30
