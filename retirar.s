@@ -28,20 +28,26 @@ retirar:
 
 	@@ Guardamos SP = LR (R13)
 	stmfd sp!, {lr}
+	mov r0,#0
 
+	mov r2,#0
+	mov r3,#3
 	@@ DO STUFF
-	mul r1, #5 
 
-	loop:
-		cmp r2, #0
-		beq fin
-		ldr r3, [r0, r1]
-		str r3, [=STR, r1]
-		add r1, #5
-		sub r2, #1
-		b loop
-
-	fin:
+		push {lr}
+		@ multiplico la posicion por 5, porque cada palabra tiene 5 bytes
+		mov r1, #5
+		mov r1,#5
+		add r1, r0 
+		@ inicio del ciclo 
+		mov r2, #4 @ contador
+		mov r3, #' ' @ espacio en blanco
+		strb r3, [r1],#1
+		subs r2, #1 
+		bne borrar
+		pop {pc}
+		
+		fin:
 		ldr r0, =STR
 		@@ DEVOLVER CONTROL AL PROGRAMA PRINCIPAL
 		ldmfd sp!, {lr}		@@ Ahora R13 = SP
