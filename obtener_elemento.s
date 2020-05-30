@@ -1,11 +1,11 @@
 @-----------------------------------------------------------------------
-@ Programa en Assembler ARM                                            |
-@ Universidad del Valle de Guatemala                                   |
+@ Programa en Assembler ARM                                            | 
+@ Universidad del Valle de Guatemala                                   | 
 @ Autor: Walter Saldana  #19897										   |
 @ Autor: Carlos Ráxtum   #19721                                        |
-@ Autor: Eduardo Ramírez #19946                                        |
-@ 18 de mayo del 2020                                                  |
-@																	   |
+@ Autor: Eduardo Ramírez #19946                                        | 
+@ 18 de mayo del 2020                                                  | 
+@																	   | 
 @ Aplicacion en assembler ARM para manejo de arreglos                  |
 @                                                                      |
 @Entradas:                                                             |
@@ -13,7 +13,7 @@
 @	R1: Posición del elemento en el array solicitado                   |
 @	R2: Cantidad de elementos del array solicitados.                   |
 @Salida:                                                               |
-@	R0: Elemento en la posición seleccionada del array seleccionado    |
+@	R0: Elemento en la posición seleccionada del array seleccionado    | 
 @		concatenado a n cantidad de elementos solicitados que le siguen|
 @                                                                      |
 @-----------------------------------------------------------------------
@@ -30,17 +30,29 @@ obtener_elemento:
 	@@ Guardamos SP = LR (R13)
 	stmfd sp!, {lr}
 
-	@@ DO STUFF
-	mul r1, #5 
-
-	concatenar:
-		cmp r2, #0
-		beq fin
-		ldr r3, [r0, r1]
-		str r3, [=STR, r1]
-		add r1, #5
-		sub r2, #1
-		b concatenar
+	ldr r0,=STRPEDIR
+	bl puts
+	ldr r0, =FORMS @ Se lee la cadena con formatoS
+	ldr r1, =RES
+	bl scanf @ compara si la letra corresponde a la palabra
+	
+	ldr r0, = cadena 
+	ldrb r10, [r0]
+	ldrb r11, [r0,#1] 
+	sub r10, #0x30
+	sub r10, #1 
+	
+	
+	ldr r3, =LETRAS
+	ldrb r9, [r3,r10] 
+	
+	mov r1,r9
+	cmp r9, r11 
+	
+	beq correcto 
+	ldr r0, =mensaje_noigual
+	
+	bl puts
 
 	fin:
 		ldr r0, =STR
