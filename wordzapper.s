@@ -74,6 +74,12 @@ main:
 	
 	/* Etiqueta para mostrar que el resultado es correcto */
 	correcto:
+		@ldr r0, =PALABRAS
+		@mov r1, #102
+		@mov r2, #18
+	    @bl sustituir
+		@mov r1, r7
+		@bl retirar
 		ldr r0, =STRCORRECTO
 		bl puts
 		mov r0,r7
