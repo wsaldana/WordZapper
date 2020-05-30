@@ -40,8 +40,11 @@ main:
 
 	mostrar:
 		@bl obtener_elemento
-		ldr r0,=PALABRAS
-		bl puts
+		mov r0, #1				@monitor
+		ldr r1, =PALABRAS		@Dir del mensaje
+		mov r2, #49			@longitud de cadena en caracteres
+		mov r7, #4				@write
+		swi 0
 
 	ingresar:
 		/* Solicitar letra */
@@ -109,7 +112,7 @@ main:
 .align 2
 
 @ Mensages para interactuar con el usuario
-BANNER: .asciz "--------------------\n********************\n --- WORD ZAPPER --- \n Assembly ARM \n UVG \n********************\n--------------------\n"
+
 STRINST: .asciz "Destruye las palabras al completarlas!!! Indica el numero de la palabra seguido del caracter faltante. EJ: 1a \n"
 STRPEDIR: .asciz "\nIngrese la(s) letra(s) faltante(s): "
 STRGANO: .asciz "Haz Ganado!!!!"
@@ -118,12 +121,39 @@ STRFIN: .asciz "Nos vemos pronto!!\n"
 STRCORRECTO: .asciz "Correcto! \n"
 STRINCORRECTO: .asciz "Incorrecto! \n"
 CHAR: .asciz "%s"
-PALABRAS: .asciz "1.anot_","2.ga_ta","3._ielo","4.libr_","5.ba_co"
+PALABRAS: .asciz "1.anot_  ","2.ga_ta  ","3._ielo  ","4.libr_  ","5.ba_co  "
 LETRAS: .byte 'a', 'i', 'c', 'a','n'
 RESPUESTAS: .asciz "anota","gaita","cielo","libra","banco"
+ENTER: .asciz "\n"
 
 @ Referencias a memorias que guardan datos ingresados por el usuario 
 FORM: .asciz "%d"
 FORMS: .asciz "%s"
 RES: .asciz "  "
 
+BANNER:.asciz "
+----------------------------------------------------------------------------------------------
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+ * - >              __                        __                        __              < - *                             
+ * - >            _|  |_                    _|  |_                    _|  |_            < - *                               
+ * - >          _|      |_                _|      |_                _|      |_          < - *                           
+ * - >         |  _    _  |              |  _    _  |              |  _    _  |         < - *                         
+ * - >         | |_|  |_| |              | |_|  |_| |              | |_|  |_| |         < - *                             
+ * - >      _  |  _    _  |  _        _  |  _    _  |  _        _  |  _    _  |  _      < - *                                
+ * - >     |_|_|_| |__| |_|_|_|      |_|_|_| |__| |_|_|_|      |_|_|_| |__| |_|_|_|     < - *                              
+ * - >       |_|_        _|_|          |_|_        _|_|          |_|_        _|_|       < - *                        
+ * - >         |_|      |_|              |_|      |_|              |_|      |_|         < - *
+ 
+ _     _  _______  ______    ______     _______  _______  _______  _______  _______  ______   
+| | _ | ||       ||    _ |  |      |   |       ||   _   ||       ||       ||       ||    _ |  
+| || || ||   _   ||   | ||  |  _    |  |____   ||  |_|  ||    _  ||    _  ||    ___||   | ||  
+|       ||  | |  ||   |_||_ | | |   |   ____|  ||       ||   |_| ||   |_| ||   |___ |   |_||_ 
+|       ||  |_|  ||    __  || |_|   |  | ______||       ||    ___||    ___||    ___||    __  |
+|   _   ||       ||   |  | ||       |  | |_____ |   _   ||   |    |   |    |   |___ |   |  | |
+|__| |__||_______||___|  |_||______|   |_______||__| |__||___|    |___|    |_______||___|  |_|
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+----------------------------------------------------------------------------------------------
+
+"
